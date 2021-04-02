@@ -8,7 +8,6 @@
 npm i enzyme --save-dev
 ```
 
-
 ### Enzyme Adapter
 
 This is the unofficial Enzyme Adapter for React 17.
@@ -37,6 +36,13 @@ https://www.npmjs.com/package/check-prop-types
 
 ```bash
 npm install check-prop-types --save
+```
+
+### Axios
+
+```bash
+npm install axios
+npm i moxios --save-dev
 ```
 
 ## Removing Data Test Attribute in Production Code
