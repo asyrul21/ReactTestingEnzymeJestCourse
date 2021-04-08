@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 const GuessWords = (props) => {
   let contents;
-
   if (props.guessedWords.length === 0) {
     contents = (
       <span data-test="guess-instructions">Try to guess the secret word!</span>
@@ -11,8 +10,8 @@ const GuessWords = (props) => {
   } else {
     const guessedWords = props.guessedWords.map((word, index) => {
       return (
-        <tr data-test="guessed-word" key={index}>
-          <td>{word.guessWord}</td>
+        <tr data-test="guess-word" key={index}>
+          <td>{word.guessedWord}</td>
           <td>{word.letterMatchCount}</td>
         </tr>
       );
@@ -39,7 +38,7 @@ const GuessWords = (props) => {
 GuessWords.propTypes = {
   guessedWords: PropTypes.arrayOf(
     PropTypes.shape({
-      guessWord: PropTypes.string.isRequired,
+      guessedWord: PropTypes.string.isRequired,
       letterMatchCount: PropTypes.number.isRequired,
     })
   ).isRequired,

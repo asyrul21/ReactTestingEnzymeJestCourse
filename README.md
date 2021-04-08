@@ -1,5 +1,7 @@
 # Udemy Course on React Testing with Jest and Enzyme
 
+[Official Course Repo](https://github.com/bonnie/udemy-ENZYME)
+
 ## Installation:
 
 ### Enzyme
@@ -43,6 +45,12 @@ npm install check-prop-types --save
 ```bash
 npm install axios
 npm i moxios --save-dev
+```
+
+### Redux
+
+```bash
+npm i redux react-redux redux-thunk
 ```
 
 ## Removing Data Test Attribute in Production Code

@@ -1,16 +1,20 @@
 import react from 'react';
 import { mount } from 'enzyme';
+import { Provider } from 'react-redux';
 
 import App from './App';
-import { findByTestAttr } from '../test/testUtils';
+import { findByTestAttr, storeFactory } from '../test/testUtils';
 
-// create wrapper with specified initial conditions
-// then submit a guessed word of 'train'
+// activate global mock to make sure getSecretWord does not make network call
+jest.mock('./actions');
 
-const setup = (state = {}) => {
-  const wrapper = mount(<App />);
-
-  // TODO: Apply state
+const setup = (initialState = {}) => {
+  const store = storeFactory(initialState);
+  const wrapper = mount(
+    <Provider store={store}>
+      <App />
+    </Provider>
+  );
 
   // add value to input box
   const inputBox = findByTestAttr(wrapper, 'input-box');
@@ -28,7 +32,7 @@ const setup = (state = {}) => {
 // });
 
 // case 1: no words were guessed
-describe.skip('no words guessed', () => {
+describe('no words guessed', () => {
   let wrapper;
   beforeEach(() => {
     wrapper = setup({
@@ -44,7 +48,7 @@ describe.skip('no words guessed', () => {
 });
 
 // case 2: some words guessed
-describe.skip('some words guessed', () => {
+describe('some words guessed', () => {
   let wrapper;
   beforeEach(() => {
     wrapper = setup({
@@ -52,11 +56,11 @@ describe.skip('some words guessed', () => {
       success: false,
       guessedWords: [
         {
-          guessWord: 'parka',
+          guessedWord: 'parka',
           letterMatchCount: 3,
         },
         {
-          guessWord: 'johny',
+          guessedWord: 'johny',
           letterMatchCount: 1,
         },
       ],
@@ -70,7 +74,7 @@ describe.skip('some words guessed', () => {
 });
 
 // case 3:
-describe.skip('guess secret word', () => {
+describe('guess secret word', () => {
   let wrapper;
   beforeEach(() => {
     wrapper = setup({
@@ -78,11 +82,11 @@ describe.skip('guess secret word', () => {
       success: false,
       guessedWords: [
         {
-          guessWord: 'parka',
+          guessedWord: 'parka',
           letterMatchCount: 3,
         },
         {
-          guessWord: 'johny',
+          guessedWord: 'johny',
           letterMatchCount: 1,
         },
       ],

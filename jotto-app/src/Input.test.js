@@ -1,7 +1,12 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { findByTestAttr, checkPropTypesFor } from '../test/testUtils';
+import { shallow, mount } from 'enzyme';
+import {
+  findByTestAttr,
+  checkPropTypesFor,
+  storeFactory,
+} from '../test/testUtils';
 import Input from './Input';
+import { Provider } from 'react-redux';
 
 // mock entire module for destructuring useState on import
 // const mockSetCurrentGuess = jest.fn();
@@ -11,13 +16,17 @@ import Input from './Input';
 // }));
 
 const defaultProps = {
-  success: false,
   secretWord: 'party',
 };
 
-const setup = (props = {}) => {
-  const setupProps = { ...defaultProps, ...props };
-  return shallow(<Input {...setupProps} />);
+const setup = (initialState = {}) => {
+  const setupProps = { ...defaultProps };
+  const store = storeFactory(initialState);
+  return mount(
+    <Provider store={store}>
+      <Input {...setupProps} />
+    </Provider>
+  );
 };
 
 describe('render', () => {
@@ -27,7 +36,6 @@ describe('render', () => {
       wrapper = setup({ success: true });
     });
     test('renders without error', () => {
-      const wrapper = setup();
       const component = findByTestAttr(wrapper, 'component-input');
       expect(component.length).toBe(1);
     });
@@ -47,7 +55,6 @@ describe('render', () => {
       wrapper = setup({ success: false });
     });
     test('renders without error', () => {
-      const wrapper = setup();
       const component = findByTestAttr(wrapper, 'component-input');
       expect(component.length).toBe(1);
     });
@@ -77,7 +84,7 @@ describe('state controlled input field', () => {
     originalUseState = React.useState;
     // overwrite useState
     React.useState = jest.fn(() => ['', mockSetCurrentGuess]);
-    wrapper = setup();
+    wrapper = setup({ success: false });
   });
   afterEach(() => {
     // restore useState

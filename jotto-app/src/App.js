@@ -3,16 +3,19 @@ import Congrats from './Congrats';
 import GuessWords from './GuessWords';
 import Input from './Input';
 import { useEffect } from 'react';
-import { getSecretWord } from './actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { getSecretWord, getLocalSecretWord } from './actions';
 
 function App() {
-  // TODO: get props from shared state
-  const success = false;
-  const secretWord = 'party';
-  const guessedWords = [];
+  // get props from shared state
+  const success = useSelector((state) => state.success);
+  const guessedWords = useSelector((state) => state.guessedWords);
+  const secretWord = useSelector((state) => state.secretWord);
 
+  const dispatch = useDispatch();
   useEffect(() => {
-    getSecretWord();
+    // dispatch(getSecretWord());
+    dispatch(getLocalSecretWord());
   }, []);
 
   return (

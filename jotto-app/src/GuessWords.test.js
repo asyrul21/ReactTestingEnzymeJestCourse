@@ -4,7 +4,7 @@ import { findByTestAttr, checkPropTypesFor } from '../test/testUtils';
 import GuessWords from './GuessWords';
 
 const defaultProps = {
-  guessedWords: [{ guessWord: 'train', letterMatchCount: 3 }],
+  guessedWords: [{ guessedWord: 'train', letterMatchCount: 3 }],
 };
 
 const setup = (props = {}) => {
@@ -38,15 +38,15 @@ describe('if there are no words guessed', () => {
 describe('if there are words guessed', () => {
   const guessedWords = [
     {
-      guessWord: 'train',
+      guessedWord: 'train',
       letterMatchCount: 3,
     },
     {
-      guessWord: 'agile',
+      guessedWord: 'agile',
       letterMatchCount: 1,
     },
     {
-      guessWord: 'party',
+      guessedWord: 'party',
       letterMatchCount: 5,
     },
   ];
@@ -67,7 +67,7 @@ describe('if there are words guessed', () => {
   });
 
   test('correct number of guessed words', () => {
-    const guessWordsNodes = findByTestAttr(wrapper, 'guessed-word');
+    const guessWordsNodes = findByTestAttr(wrapper, 'guess-word');
     expect(guessWordsNodes.length).toBe(guessedWords.length);
   });
 });
